@@ -14,7 +14,7 @@
   }
   
 
-.main-container {
+.main-container-dash {
     border-left: 10px solid var(--dark); /* Thicker border */
     border-right: 10px solid var(--dark); /* Thicker border */
     border-bottom: 10px solid var(--dark); /* Thicker border */
@@ -22,6 +22,7 @@
 
 .task-header {
    text-align: center;
+   flex-grow: 1; /* Allow the header to take up available space */
 }
 
 .task-header-container {
@@ -29,6 +30,7 @@
     align-items: center; /* Vertically align button and header */
     justify-content: flex-start; /* Aligns both to the left */
     gap: 10px; /* Adds space between button and header */
+    width: 100%; /* Ensure full width of the container */
   }
 
 .task-list-container {
@@ -74,4 +76,18 @@
     justify-content: center;
     align-items: flex-start;
     background-color: var(--light);
+  }
+
+  @media (max-width: 768px) {
+    .main-container-dash {
+      flex-direction: column; /* Stack left and right side on smaller screens */
+      border-left: 10px solid var(--dark); /* Thicker border */
+      border-right: 10px solid var(--dark); /* Thicker border */
+      border-bottom: 10px solid var(--dark); /* Thicker border */
+    }
+
+    .right-side-dash {
+      border-left: 0px; /* Thicker border */
+      border-top: 10px solid var(--dark); /* Thicker border */
+    }
   }

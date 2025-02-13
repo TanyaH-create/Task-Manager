@@ -1,6 +1,6 @@
 //TaskList.tsx
-
 import React from 'react';
+import TaskItem from './TaskItem'; // Import TaskItem component
 
 interface Task {
   id: number;
@@ -10,20 +10,20 @@ interface Task {
 }
 
 interface TaskListProps {
-  initialTasks: Task[];
+  tasks: Task[];
+  onToggleComplete: (taskId: number) => void; // Add onToggleComplete as a prop
 }
 
-const TaskList: React.FC<TaskListProps> = ({ initialTasks }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleComplete }) => {
   return (
     <div className="task-list border p-3 rounded">
-       {initialTasks.length === 0 ? (
+       {tasks.length === 0 ? (
         <p>No tasks available.</p>
       ) : (
         <ul className="list-group">
-          {initialTasks.map(task => (
+          {tasks.map(task => (
             <li key={task.id} className="list-group-item">
-              <h5>{task.title}</h5>
-              <p>{task.description}</p>
+              <TaskItem task={task} onToggleComplete={onToggleComplete} />
             </li>
           ))}
         </ul>
