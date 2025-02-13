@@ -83,6 +83,17 @@ const DashPage = () => {
       .catch((error) => console.error("Error adding task:", error));
   };
 
+  const handleToggleComplete = (taskId: number) => {
+    // Update task's isComplete status
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId
+          ? { ...task, isComplete: !task.isComplete }
+          : task
+      )
+    );
+  };
+
   return (
     <main className="container-fluid d-flex flex-column min-vh-100">
       {/* Navigation Bar */}
@@ -103,7 +114,7 @@ const DashPage = () => {
                 <AddTaskButton onAddTask={() => setShowModal(true)} />
                 <h2 className="task-header">TASK LIST</h2>
               </div>
-              <TaskList initialTasks={tasks} />
+              <TaskList tasks={tasks} onToggleComplete={handleToggleComplete} />
             </div>
         </div>
       </div>
