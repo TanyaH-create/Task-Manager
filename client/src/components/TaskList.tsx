@@ -1,8 +1,6 @@
 //TaskList.tsx
-import React, { useEffect, useState } from "react";
-import TaskItem from "./TaskItem";
-//import AddTaskButton from "./AddTaskButton";
 
+import React from 'react';
 
 interface Task {
   id: number;
@@ -12,44 +10,28 @@ interface Task {
 }
 
 interface TaskListProps {
-  initialTasks?: Task[];   //TLH 2/11/25
+  initialTasks: Task[];
 }
 
-const TaskList: React.FC<TaskListProps> = ({ initialTasks = []}) => {
-  // TLH 2/11/25 - check if undefined (not an array) then initialize as array
-  const [tasks, setTasks] = useState<Task[]>(Array.isArray(initialTasks) ? initialTasks : []);
-  
-
-  
-  useEffect(() => {
-    fetch("/api/auth/dash")
-      .then((res) => res.json())
-      //.then((data) => setTasks(data.tasks))
-      .then((data) => {
-        console.log("Fetched tasks:", data.tasks);
-        setTasks(Array.isArray(data.tasks) ? data.tasks : []); //check if tasks is undefined, if it is set to empty array
-      })
-      .catch((error) => console.error("Error fetching tasks:", error));
-  }, []);
-
-  const toggleTaskCompletion = (taskId: number) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, isComplete: !task.isComplete } : task
-      )
-    );
-  };
-  const taskData = tasks ||  [];
-
+const TaskList: React.FC<TaskListProps> = ({ initialTasks }) => {
   return (
-    <div>
-      { /* <div "space-y-4 bg-light text-dark p-4 rounded-md shadow-md"> */ }
-      { /* <AddTaskButton onAddTask={() => console.log("Open add task modal")} /> */ }
-       {taskData.map((task) => (
-        <TaskItem key={task.id} task={task} onToggleComplete={toggleTaskCompletion} />
-      ))} 
+    <div className="task-list border p-3 rounded">
+       {initialTasks.length === 0 ? (
+        <p>No tasks available.</p>
+      ) : (
+        <ul className="list-group">
+          {initialTasks.map(task => (
+            <li key={task.id} className="list-group-item">
+              <h5>{task.title}</h5>
+              <p>{task.description}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
 
 export default TaskList;
+
+// export default TaskList;
