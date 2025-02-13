@@ -20,6 +20,30 @@
     border-bottom: 10px solid var(--dark); /* Thicker border */
 }
 
+/* Center title and right-align checkbox */
+.task-item-header {
+  display: flex;
+  justify-content: space-between; /* Aligns the title and checkbox to opposite ends */
+  align-items: center;
+  width: 100%;
+}
+
+/* Flex container for description and sticker with proper alignment */
+.task-item-description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-item-description img {
+  margin-left: 8px; /* Adds a little space between the description and the sticker */
+}
+
+/*  to ensure task description takes available space */
+.task-item-description p {
+  flex-grow: 1;
+}
+
 .task-header {
    text-align: center;
    flex-grow: 1; /* Allow the header to take up available space */
@@ -38,7 +62,7 @@
     width: 100%;
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     
   }
 
