@@ -1,6 +1,6 @@
 //TaskItem.tsx
-// TaskItem.tsx
-import React, { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import AuthService from '../utils/authService.ts';
 
 interface Task {
@@ -8,7 +8,7 @@ interface Task {
   title: string;
   description: string;
   isComplete: boolean;
-  stickerUrl?: string;  // Ensure the stickerUrl field is included
+  stickerUrl?: string;  
 }
 
 
@@ -34,19 +34,21 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onToggleComplete }) => {
     try {
       const response = await fetch(`${API_BASE_URL}/getSticker`);
       const data = await response.json();
-      console.log('Sticker has been fetched:', data);
+      console.log('FETCH STICKER: Sticker has been fetched:', data);
       setStickerUrl(data.stickerUrl); // Set the sticker URL to the local state
+      return data;
     } catch (error) {
       console.error("Error fetching sticker:", error);
       setStickerUrl(null);
+      return null;
     }
   };
 
-  useEffect(() => {
-    if (task.isComplete && !stickerUrl) {
-      fetchSticker();  // Fetch the sticker URL when the task is marked complete
-    }
-  }, [task.isComplete]); // This effect runs when task.isComplete changes
+  // useEffect(() => {
+  //   if (task.isComplete && !stickerUrl) {
+  //     fetchSticker();  // Fetch the sticker URL when the task is marked complete
+  //   }
+  // }, [task.isComplete]); // This effect runs when task.isComplete changes
 
   const handleToggleComplete = async () => {
     const token = AuthService.getToken();
@@ -54,10 +56,15 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onToggleComplete }) => {
 
     try {
       // If the task is not complete, fetch the sticker
-      if (!task.isComplete && !stickerUrl) {
-        console.log('Task has been toggled - fetch sticker');
-        await fetchSticker();  // Ensure stickerUrl is set when the task is toggled
-        updatedStickerUrl = stickerUrl;
+      if (!task.isComplete && !task.stickerUrl) {
+        console.log('TASK ITEM: handle toggle task isComplete', task.isComplete)
+        console.log('TASK ITEM: handle toggle task sticker url', task.stickerUrl)
+        console.log('TAX ITEM: Task has been toggled - fetch sticker');
+        const data = await fetchSticker();
+        if (data) {
+          updatedStickerUrl = data.stickerUrl;  // Use the returned sticker URL
+          console.log('TASK ITEM: Sticker has been fetched, updatedSticker:', updatedStickerUrl);
+        }
       }
 
       const updatedTask = {
@@ -66,7 +73,8 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onToggleComplete }) => {
         stickerUrl: updatedStickerUrl,
       };
 
-      console.log('Making PUT request to:', `${API_BASE_URL}/api/tasks/${task.id}`);
+      console.log('TASK ITEM: Making PUT request to:', `${API_BASE_URL}/api/tasks/${task.id}`);
+      console.log ('TASK ITEM: PUT request to store in database')
       const response = await fetch(`${API_BASE_URL}/api/tasks/${task.id}`, {
         method: "PUT",
         headers: {
@@ -79,15 +87,15 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onToggleComplete }) => {
         }),
       });
 
-      console.log('Response Status:', response.status);
+      console.log('TASK ITEM: Response Status:', response.status);
       if (!response.ok) {
         throw new Error("Failed to update task");
       }
 
       const updatedTaskFromServer = await response.json();
-      console.log('TaskItem PUT updated task:', updatedTaskFromServer);
+      console.log('TASK ITEM databse has been updated updatedTaskFronServer:', updatedTaskFromServer);
 
-      // Pass the updated task back to the parent
+      // Pass the updated task back to TaskList
       onToggleComplete(updatedTaskFromServer.id, updatedTaskFromServer);
 
     } catch (error) {
@@ -115,7 +123,10 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onToggleComplete }) => {
           />
         </div>
         {task.isComplete && stickerUrl && (
-          <img src={stickerUrl} alt="celebration sticker" className="w-12 h-12 ml-4" />
+          <div className="flex flex-col items-center">
+            <img src={stickerUrl} alt="celebration sticker" className="w-12 h-12" />
+            <span className="text-xs text-gray-500 mt-1 text-center">Powered by <a href="https://giphy.com" target="_blank" rel="noopener noreferrer" className="text-blue-500">GIPHY</a></span>
+         </div>
         )}
       </div>
     </div>

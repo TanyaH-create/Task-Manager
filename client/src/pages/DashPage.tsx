@@ -13,7 +13,7 @@ import AddTaskModal from '../components/AddTaskModal.tsx'; // Import Modal
 import './DashPage.css';
 
 const DashPage = () => {
-  console.log('DashPage Renderinng')  
+  console.log('DashPage is Renderinng')  
 
   // TLH 2/11/25 - set up type
   interface Task {
@@ -48,8 +48,12 @@ const DashPage = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('DashPage GET data:', data)
-        setTasks(data.tasks || []); // Set tasks (empty if no tasks)
+        console.log('DashPage GET data:', data);
+        setTasks(data.tasks.map((task: Task) => ({
+          ...task,
+          stickerUrl: task.stickerUrl || null, // Ensure sticker URL is included
+        })));
+       // setTasks(data.tasks || []); // Set tasks (empty if no tasks)
       })
       .catch((error) => {
         console.log("Error:", error);
@@ -60,15 +64,14 @@ const DashPage = () => {
 
   const handleAddTask = (title: string, description: string) => {
     const token = AuthService.getToken();
- 
-    const userId = AuthService.decodeToken(token)?.id; // Decode the token to get the userId
+     const userId = AuthService.decodeToken(token)?.id; // Decode the token to get the userId
   
        if (!userId) {
       console.log("No user ID found");
       return;
     }
 
-    console.log('add task token:', token, 'userId:', userId);
+    console.log('ADDING TASK: retrieving token:', token, 'and userId:', userId);
     
     fetch('/api/tasks', {
       method: 'POST',
@@ -78,19 +81,27 @@ const DashPage = () => {
       },
       body: JSON.stringify({ title, description, userId, isComplete: false }),
     })
-      .then((response) => response.json())
-      .then((newTask) => setTasks((prevTasks) => [...prevTasks, newTask]))
+      .then((response) => {
+        console.log("FETCH TASKS raw response:", response);
+        return response.json();  
+      })
+      .then((newTask) => {
+        console.log("FETCH TASKS newTask::", newTask);
+        setTasks((prevTasks) => [...prevTasks, newTask]);
+      })
       .catch((error) => console.error("Error adding task:", error));
   };
 
-  const handleToggleComplete = (taskId: number) => {
+  const handleToggleComplete = (taskId: number, updatedTask: Task) => {
     // Update task's isComplete status
+    console.log('DASH PAGE: Task list returned from TASK LIST:', updatedTask)
+    console.log('IS COMPLETE TOGGLE BUTTON CLICKED');
+  
     setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId
-          ? { ...task, isComplete: !task.isComplete }
-          : task
-      )
+      prevTasks.map((task) => 
+        //task.id === taskId ? { ...task, isComplete: !task.isComplete } : task
+        task.id === taskId ? updatedTask : task
+      ) // Closing parenthesis for map()
     );
   };
 

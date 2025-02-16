@@ -38,7 +38,9 @@ export const updateTask = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { isComplete, stickerUrl } = req.body;
+
     console.log('UPDATE REQUEST: isComplete, stickerUrl')
+    
     // Validate isComplete is part of the request
     if (typeof isComplete !== 'boolean') {
       return res.status(400).json({ message: "isComplete field is required and should be a boolean" });
@@ -49,9 +51,15 @@ export const updateTask = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Task not found" });
     }
 
-    if (stickerUrl) {
-      task.stickerUrl = stickerUrl;
+    // Only update the stickerUrl if it was never set before
+    if (stickerUrl && !task.stickerUrl) {
+        task.stickerUrl = stickerUrl;
     }
+
+
+    // if (stickerUrl) {
+    //   task.stickerUrl = stickerUrl;
+    // }
 
     task.isComplete = isComplete;
     await task.save();

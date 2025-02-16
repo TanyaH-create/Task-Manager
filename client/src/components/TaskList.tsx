@@ -17,17 +17,20 @@ interface TaskListProps {
 
 const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleComplete }) => {
   const [taskList, setTaskList] = useState<Task[]>(tasks);
-
+  
   useEffect(() => {
     setTaskList(tasks);  // Keep the task list updated with the parent state
+    console.log('TASK LIST USE EFFECT tasks:', tasks)
   }, [tasks]);
 
   // Function to handle task completion toggle
   const handleToggleComplete = (taskId: number, updatedTask: Task) => {
+    console.log('TASK LIST handle toggle, TASK ITEM returned updated task:', updatedTask, 'for taskId:', taskId)
     // Update task list state to trigger a re-render
     const updatedTasks = taskList.map((task) =>
       task.id === taskId ? updatedTask : task
     );
+    console.log('TASK LIST handle toggle Complete added updated task to tasks list:', updatedTasks)
     setTaskList(updatedTasks);
     onToggleComplete(taskId, updatedTask);  // Pass the updated task back to the parent
   };
