@@ -11,8 +11,8 @@ interface AuthenticatedRequest extends Request {
 
 const authenticateToken = (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
   // Extract token from 'Bearer <token>' and trim spaces
-  const token = req.header("Authorization")?.split(" ")[1]; 
-  console.log('token', token)
+  const token = req.header("Authorization")?.replace("Bearer", "").trim();
+  
   // Check if token exists
   if (!token) {
     res.status(401).json({ message: "Access denied. No token provided." });
