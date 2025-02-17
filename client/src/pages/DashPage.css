@@ -1,13 +1,6 @@
 /* DashPagecss */
+ 
 
-
-  
-
-.main-container-dash {
-    border-left: 10px solid var(--dark); /* Thicker border */
-    border-right: 10px solid var(--dark); /* Thicker border */
-    border-bottom: 10px solid var(--dark); /* Thicker border */
-}
 
 /* Center title and right-align checkbox */
 .task-item-header {
@@ -59,9 +52,9 @@
     margin-top: auto; /* Pushes button to the bottom */
   }
 
-  .right-side-dash {
+  /* .right-side-dash {
     border-left: 10px solid var(--dark); /* Thicker border */
-    flex: 0 0 50%;
+    /* flex: 0 0 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,29 +62,30 @@
     background-color: var(--light);
     display: flex;
     
-  }
+  }  */
   
-  .badge-list-container {
+  /* .badge-list-container {
     
     padding: 16px; /* Same as p-3 in Bootstrap */
-    width: 100%;
+    /* width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Makes space between tasks and button */
-  }
+  /* }   */
 
 
-  .left-side-dash {
+  /* .left-side-dash {
     flex: 0 0 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     background-color: var(--light);
-  }
+  } */
 
   /* Custom CSS for the checkbox */
+
   .custom-checkbox .form-check-input {
     border: 2px solid black;  /* Set the border color to black and thickness to 2px */
   }
@@ -106,17 +100,51 @@
     border-radius: 8px;  /* Optional: Set border-radius for rounded corners */
   }
 
-  @media (max-width: 768px) {
-    .main-container-dash {
-      flex-direction: column; /* Stack left and right side on smaller screens */
-      border-left: 10px solid var(--dark); /* Thicker border */
-      border-right: 10px solid var(--dark); /* Thicker border */
-      border-bottom: 10px solid var(--dark); /* Thicker border */
-    }
 
-    .right-side-dash {
-      border-left: 0px; /* Thicker border */
-      border-top: 10px solid var(--dark); /* Thicker border */
-    }
+  /* RESPONSIVE STYLING */
+  @media (max-width: 768px) {
+
+  /* Make TaskList a carousel when on small devices */
+  .task-list-container {
+    max-width: 90%; /* Limit width to prevent full-screen stretching */
+    width: 350px; /* Set a reasonable fixed width for the carousel */
+    margin: auto; /* Center the container */
+    height: auto; /* container will shrink to fit around task item */
   }
+
+  .carousel-item {
+    display: flex;
+    justify-content: center;
+  }
+
+  .carousel-item .card {
+    width: 100%; /* Ensure the card fits inside the carousel */
+    max-width: 350px; /* Match container width */
+  }
+
+  /* get rid of default borders*/
+/* Remove any borders, background colors, or padding causing extra spacing */
+.carousel-inner {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* Ensure each item doesn’t have unwanted borders or padding */
+.carousel-item {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Remove card borders inside the carousel if necessary */
+.carousel-item .card {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+}
+
+  
 
