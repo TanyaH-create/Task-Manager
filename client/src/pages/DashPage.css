@@ -91,6 +91,21 @@
     background-color: var(--light);
   }
 
+  /* Custom CSS for the checkbox */
+  .custom-checkbox .form-check-input {
+    border: 2px solid black;  /* Set the border color to black and thickness to 2px */
+  }
+
+  .custom-card-body {
+    border: 3px solid #00ABE4;  /* Set the border thickness to 3px and color to #00ABE4 */
+    border-radius: 8px;  /* Optional: Set border-radius for rounded corners */
+  }
+
+  .task-list-container {
+    border: 3px solid #404e5c ;  /* Set the border thickness to 3px and color to #00ABE4 */
+    border-radius: 8px;  /* Optional: Set border-radius for rounded corners */
+  }
+
   @media (max-width: 768px) {
     .main-container-dash {
       flex-direction: column; /* Stack left and right side on smaller screens */
@@ -104,3 +119,4 @@
       border-top: 10px solid var(--dark); /* Thicker border */
     }
   }
+

@@ -1,6 +1,6 @@
-// TaskList.tsx
 import React, { useState, useEffect } from 'react';
 import TaskItem from './TaskItem'; // Import TaskItem component
+import { Container, Row, Col, Card } from 'react-bootstrap'; // Import Bootstrap components
 
 interface Task {
   id: number;
@@ -17,7 +17,7 @@ interface TaskListProps {
 
 const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleComplete }) => {
   const [taskList, setTaskList] = useState<Task[]>(tasks);
-  
+
   useEffect(() => {
     setTaskList(tasks);  // Keep the task list updated with the parent state
     console.log('TASK LIST USE EFFECT tasks:', tasks)
@@ -36,20 +36,23 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleComplete }) => {
   };
 
   return (
-    <div className="task-list border p-3 rounded">
-      {taskList.length === 0 ? (
-        <p>No tasks available.</p>
-      ) : (
-        <ul className="list-group">
-          {taskList.map((task) => (
-            <li key={task.id} className="list-group-item">
-              <TaskItem task={task} onToggleComplete={handleToggleComplete} />
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <Container className="task-list-container mt-4">
+      <div className="task-list">
+        {taskList.length === 0 ? (
+          <p>No tasks available.</p>
+        ) : (
+          <Row>
+            {taskList.map((task) => (
+              <Col key={task.id} md={4} sm={6} xs={12} className="mb-4">
+                <Card className="shadow-sm">
+                  <TaskItem task={task} onToggleComplete={handleToggleComplete} />
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        )}
+      </div>
+    </Container>
   );
 };
-
 export default TaskList;
