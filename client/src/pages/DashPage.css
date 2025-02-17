@@ -105,44 +105,10 @@
   @media (max-width: 768px) {
 
   /* Make TaskList a carousel when on small devices */
-  .task-list-container {
-    max-width: 90%; /* Limit width to prevent full-screen stretching */
-    width: 350px; /* Set a reasonable fixed width for the carousel */
-    margin: auto; /* Center the container */
-    height: auto; /* container will shrink to fit around task item */
-  }
+ 
 
-  .carousel-item {
-    display: flex;
-    justify-content: center;
-  }
 
-  .carousel-item .card {
-    width: 100%; /* Ensure the card fits inside the carousel */
-    max-width: 350px; /* Match container width */
-  }
 
-  /* get rid of default borders*/
-/* Remove any borders, background colors, or padding causing extra spacing */
-.carousel-inner {
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-}
-
-/* Ensure each item doesn’t have unwanted borders or padding */
-.carousel-item {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
-
-/* Remove card borders inside the carousel if necessary */
-.carousel-item .card {
-  border: none !important;
-  box-shadow: none !important;
-}
 
 }
 
