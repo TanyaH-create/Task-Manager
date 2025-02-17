@@ -75,11 +75,22 @@ function MainPage () {
   return (
     <>
      <main className="main-container d-flex">
-      <div className='left-side p-5'>
-         <img src= { logo }  alt="logo" className="logo" />
+      <div className='left-side'>
+         <img 
+             src= { logo }  
+             alt="logo" 
+             className="logo" 
+             />
       </div>
       <div className="right-side p-5">
-        <div className="login-container">
+        <div 
+           className="login-container" 
+           style={{ 
+               border: '4px solid black', 
+               borderRadius: '10px', // Rounded corners
+               padding: '20px', // Space between the inputs and the border
+               
+            }}>
         <h2>
             {isResetPasswordMode ? "Reset Password" : 
             isLoginMode ? "Welcome Back!" : "Create an Account"}
