@@ -1,17 +1,6 @@
 /* DashPagecss */
 
-.navbar {
-    background: linear-gradient(90deg, rgba(57,208,228,1) 0%, rgba(89,195,196,1) 67%, rgba(49,162,171,1) 100%);
-    /* background: var(--gradient-blue);   */
-    border-top: 10px solid var(--dark); /* Thicker border */
-    border-left: 10px solid var(--dark); /* Thicker border */
-    border-right: 10px solid var(--dark); /* Thicker border */
-    border-bottom: 10px solid var(--dark);
-    color: var(--dark);
-    margin: 0;
-    padding: 1rem;
-    width: 100%;
-  }
+
   
 
 .main-container-dash {
