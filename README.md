@@ -1,8 +1,4 @@
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/433a9344-3677-4874-a71e-4d3fb5d83159" alt="FullLogoRepo" width="500">
-</p>
-
-Flow State is a gamified task management web application designed for individuals with ADHD or anyone who struggles with organization and motivation. This interactive full-stack application allows users to create, edit, and complete tasks while earning points, ranks, and badges to stay motivated. Users can track their progress on a personalized dashboard, making productivity feel rewarding and engaging.
+Task Manager is a gamified task management web application designed for individuals with ADHD or anyone who struggles with organization and motivation. This interactive full-stack application allows users to create, edit, and complete tasks while earning points, ranks, and badges to stay motivated. Users can track their progress on a personalized dashboard, making productivity feel rewarding and engaging.
 
 ## Table of Contents
 - [Features](#features)
@@ -99,6 +95,7 @@ The source code for this project can be found here [GitHub Repository](https://g
 - Deployment: Render (both frontend and backend with PostgreSQL database)
 - APIs:
   -  [Zen Quotes](https://zenquotes.io/)
+  -  
 
 ## Contributing
 Contributions are welcome! Please follow these steps:
@@ -119,10 +116,8 @@ Contributions are welcome! Please follow these steps:
 - Team Collaboration: Allow users to work on shared tasks with teammates.
 - AI Powered Task Generator: Enter a task and use AI to break it down into smaller, manageble tasks.
 
-## Contributers - feel free to reach out with questions:
+## Contact me - feel free to reach out with questions:
 - [Tanya Hauck](https://github.com/TanyaH-create)
-- [Javier Valdez](https://github.com/ForfietBlock95)
-- [Devin Nguyen](https://github.com/DevinNguyen879)
   
 ## License
 This project is licensed under the MIT License.
