@@ -1,6 +1,7 @@
 
 //server.ts 
 import express from 'express';
+import cors from 'cors';
 import { sequelize } from './models/index.js';
 import routes from './routes/index.js';
 import dotenv from 'dotenv';
@@ -9,9 +10,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Enable CORS for all routes
+app.use(cors({
+  origin: 'http://localhost:3000',  
+  credentials: true
+}));
+
 // Cache for Zen quotes (updated with a date)
 let zenQuoteCache: { quote: string; author: string; date: string } | null = null;
 const CACHE_EXPIRATION_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+const ZENQUOTE_API_KEY = process.env.ZENQUOTE_API_KEY;
+
 
 
 app.use(express.static('../client/dist'));
@@ -64,7 +73,7 @@ app.get("/zen-quote", async (_req, res) => {
 
   try {
     console.log('Fetching new zen quote from API');
-    const response = await fetch("https://zenquotes.io/api/quotes/");
+    const response = await fetch(`https://zenquotes.io/api/quotes/${ZENQUOTE_API_KEY}`);
     const data = await response.json();
     if (data && data[0]) {
       // Store the new quote and today's date in the cache

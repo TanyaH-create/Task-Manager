@@ -91,13 +91,16 @@ export const getAllTasks = async (_req: Request, res: Response) => {
 // DELETE /Users/:id
 export const deleteTask = async (req: Request, res: Response) => {
   const { id } = req.params;
+  console.log('SERVER DELETE deleteTask')
   try {
     const task = await Task.findByPk(id);
+    console.log('Task to delete',task)
     if (task) {
       await task.destroy();
+      console.log('task deleted')
       res.json({ message: 'User deleted' });
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'Task not found' });
     }
   } catch (error: any) {
     res.status(500).json({ message: error.message });
