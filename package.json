@@ -16,7 +16,8 @@
     "client:dev": "cd client && npm run dev",
     "build": "npm run server:build && npm run client:build",
     "seed": "cd server && npm run seed",
-    "render-build": "npm install && npm run server:build && npm run client:build"
+    "db:schema":
+    "render-build": "npm install && npm run build && psql $DB_URL -f server/db/schema.sql"
   },
   "keywords": [],
   "author": "",
